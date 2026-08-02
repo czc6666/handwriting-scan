@@ -120,12 +120,19 @@
     previewArea.hidden = true;
     scanning.hidden = true;
     resultCard.hidden = true;
+    uploadCard.hidden = false;
+    setUploadCompact(false);
     fileInput.value = '';
   }
   function formatSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+  }
+
+  // 识别中/结果展示时收缩上传卡
+  function setUploadCompact(compact) {
+    uploadCard.classList.toggle('compact', compact);
   }
 
   dropZone.addEventListener('click', () => fileInput.click());
@@ -186,6 +193,7 @@
     previewArea.hidden = true;
     scanning.hidden = false;
     resultCard.hidden = true;
+    setUploadCompact(true);
     scanStep.textContent = t('scanStep1');
 
     try {
@@ -225,6 +233,7 @@
       renderResult(data.result);
       scanning.hidden = true;
       resultCard.hidden = false;
+      uploadCard.hidden = true; // 结果展示后隐藏上传卡，避免空白
     } catch (err) {
       console.error(err);
       showToast(t('errorNetwork'));

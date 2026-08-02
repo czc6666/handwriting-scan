@@ -29,7 +29,6 @@
   const downloadCsvBtn = $('downloadCsvBtn');
   const downloadXlsxBtn = $('downloadXlsxBtn');
   const downloadTxtBtn = $('downloadTxtBtn');
-  const quotaText = $('quotaText');
   const themeToggle = $('themeToggle');
   const langToggle = $('langToggle');
 
@@ -76,11 +75,12 @@
     return used;
   }
   function updateQuotaUI() {
+    // 不在 UI 显示剩余次数；仅在识别前检查是否用尽
     const used = getQuota();
     const left = Math.max(0, MAX_FREE_DAILY - used);
-    quotaText.textContent = currentLang === 'zh-CN'
-      ? `今日剩余 ${left} 次`
-      : `${left} left today`;
+    if (left === 0 && !localStorage.getItem('hs_quota_warned_' + todayStr())) {
+      localStorage.setItem('hs_quota_warned_' + todayStr(), '1');
+    }
     return left;
   }
 
@@ -528,4 +528,10 @@
   initTheme();
   applyLang(currentLang);
   updateQuotaUI();
+
+  // 导航滚动效果
+  const nav = $('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
 })();

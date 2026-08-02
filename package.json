@@ -1,0 +1,13 @@
+{
+  "name": "handwriting-scan",
+  "version": "0.1.0",
+  "private": true,
+  "description": "手写扫描通 - 中文手写转结构化文档",
+  "scripts": {
+    "dev": "wrangler pages dev . --port 8788",
+    "deploy": "wrangler pages deploy . --project-name handwriting-scan"
+  },
+  "devDependencies": {
+    "wrangler": "^4.118.0"
+  }
+}

@@ -25,6 +25,7 @@
   const mdOutput = $('mdOutput');
   const copyBtn = $('copyBtn');
   const downloadMdBtn = $('downloadMdBtn');
+  const downloadWordBtn = $('downloadWordBtn');
   const downloadCsvBtn = $('downloadCsvBtn');
   const downloadXlsxBtn = $('downloadXlsxBtn');
   const downloadTxtBtn = $('downloadTxtBtn');
@@ -341,6 +342,111 @@
   downloadTxtBtn.addEventListener('click', () => {
     download('handwriting.txt', mdOutput.textContent || '', 'text/plain;charset=utf-8');
   });
+
+  // 真正的 Word (.docx) 导出：解析 Markdown → docx 结构
+  downloadWordBtn.addEventListener('click', () => {
+    if (!window.docx) {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js';
+      s.onload = () => exportDocx();
+      s.onerror = () => showToast(t('errorNetwork'));
+      document.head.appendChild(s);
+    } else {
+      exportDocx();
+    }
+  });
+
+  function exportDocx() {
+    if (!window.docx) { showToast(t('errorNetwork')); return; }
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, AlignmentType } = window.docx;
+
+    const md = mdOutput.textContent || '';
+    const children = [];
+    let tableBuffer = [];
+
+    const flushTable = () => {
+      if (!tableBuffer.length) return;
+      const rows = tableBuffer.map((cells, ri) =>
+        new TableRow({
+          children: cells.map(cell =>
+            new TableCell({
+              children: [new Paragraph({ children: [new TextRun({ text: cell })] })]
+            })
+          ),
+          tableHeader: ri === 0
+        })
+      );
+      children.push(new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows }));
+      tableBuffer = [];
+    };
+
+    for (const rawLine of md.split('\n')) {
+      const line = rawLine.trim();
+      if (!line) { flushTable(); children.push(new Paragraph({ text: '' })); continue; }
+
+      // 表格行
+      if (line.startsWith('|') && line.endsWith('|')) {
+        const cells = line.slice(1, -1).split('|').map(c => c.trim());
+        // 跳过分隔行 |---|
+        if (!cells.every(c => /^:?-{2,}:?$/.test(c))) tableBuffer.push(cells);
+        continue;
+      }
+      flushTable();
+
+      // 标题
+      const hMatch = line.match(/^(#{1,4})\s+(.*)/);
+      if (hMatch) {
+        const level = hMatch[1].length;
+        const heading = level === 1 ? HeadingLevel.HEADING_1 : level === 2 ? HeadingLevel.HEADING_2 : level === 3 ? HeadingLevel.HEADING_3 : HeadingLevel.HEADING_4;
+        children.push(new Paragraph({ heading, children: [new TextRun({ text: hMatch[2], bold: true })] }));
+        continue;
+      }
+      // 无序列表（含 TODO）
+      const ulMatch = line.match(/^[-*]\s+(.*)/);
+      if (ulMatch) {
+        children.push(new Paragraph({
+          bullet: { level: 0 },
+          children: [new TextRun({ text: ulMatch[1] })]
+        }));
+        continue;
+      }
+      // 有序列表
+      const olMatch = line.match(/^\d+[.、)]\s+(.*)/);
+      if (olMatch) {
+        children.push(new Paragraph({
+          numbering: { reference: 'ordered', level: 0 },
+          children: [new TextRun({ text: olMatch[1] })]
+        }));
+        continue;
+      }
+      // 加粗段落 **xxx**
+      const bMatch = line.match(/^\*\*(.*)\*\*$/);
+      if (bMatch) {
+        children.push(new Paragraph({ children: [new TextRun({ text: bMatch[1], bold: true })] }));
+        continue;
+      }
+      // 普通段落
+      children.push(new Paragraph({ children: [new TextRun({ text: line.replace(/^#+\s*/, '') })] }));
+    }
+    flushTable();
+
+    const doc = new Document({
+      numbering: { config: [{ reference: 'ordered', levels: [{ level: 0, format: 'decimal', text: '%1.', alignment: AlignmentType.START }] }] },
+      sections: [{ children }]
+    });
+
+    Packer.toBlob(doc).then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'handwriting.docx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showToast(t('downloadWordSuccess'));
+    });
+  }
 
   downloadCsvBtn.addEventListener('click', () => {
     const csv = buildCsv();

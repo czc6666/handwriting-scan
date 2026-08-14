@@ -336,11 +336,11 @@
   });
 
   downloadMdBtn.addEventListener('click', () => {
-    download('handwriting.md', mdOutput.textContent || '', 'text/markdown;charset=utf-8');
+    download('table.md', mdOutput.textContent || '', 'text/markdown;charset=utf-8');
   });
 
   downloadTxtBtn.addEventListener('click', () => {
-    download('handwriting.txt', mdOutput.textContent || '', 'text/plain;charset=utf-8');
+    download('table.txt', mdOutput.textContent || '', 'text/plain;charset=utf-8');
   });
 
   // 真正的 Word (.docx) 导出：解析 Markdown → docx 结构
@@ -439,7 +439,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'handwriting.docx';
+      a.download = 'table.docx';
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -451,7 +451,7 @@
   downloadCsvBtn.addEventListener('click', () => {
     const csv = buildCsv();
     // BOM 让 Excel 正确识别 UTF-8
-    download('handwriting.csv', '\uFEFF' + csv, 'text/csv;charset=utf-8');
+    download('table.csv', '\uFEFF' + csv, 'text/csv;charset=utf-8');
   });
 
   downloadXlsxBtn.addEventListener('click', () => {
@@ -471,7 +471,7 @@
     const ws = window.XLSX.utils.aoa_to_sheet(rows.length ? rows : [['']]);
     const wb = window.XLSX.utils.book_new();
     window.XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    window.XLSX.writeFile(wb, 'handwriting.xlsx');
+    window.XLSX.writeFile(wb, 'table.xlsx');
   }
 
   function buildRows() {

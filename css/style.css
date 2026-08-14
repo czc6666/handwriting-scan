@@ -783,3 +783,77 @@ html[lang="en"] .hero-title {
   .result-tools .btn-outline { flex: 1; justify-content: center; }
   .nav-inner { padding: 0 18px; }
 }
+
+/* ============ v3 重构新增（图片转Excel） ============ */
+/* 导航子链接 */
+.nav-sub-link {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color .2s var(--ease), background .2s var(--ease);
+}
+.nav-sub-link:hover {
+  color: var(--text-1);
+  background: var(--card-2);
+}
+
+/* 主按钮描边（突出 Excel 导出） */
+.btn-primary-outline {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-primary-outline:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* 使用场景区块 */
+.usecase {
+  max-width: 860px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+}
+.usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+}
+.usecase-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+}
+.usecase-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-soft);
+  box-shadow: 0 12px 32px -16px var(--accent-glow);
+}
+.usecase-icon {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 10px;
+}
+.usecase-item h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-1);
+}
+.usecase-item p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .usecase-grid { grid-template-columns: 1fr; }
+  .nav-sub-link { font-size: 12.5px; padding: 5px 9px; }
+}

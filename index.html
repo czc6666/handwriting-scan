@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>手写转表格 - 手写转Excel在线工具 | 手写扫描通</title>
-<meta name="description" content="手写转表格/转Excel在线工具：手写笔记、账本、单据、扫描件一键识别并保留表格结构，导出 Excel/CSV/Word/Markdown。中文手写OCR识别准确，无需登录，每天20次免费。">
-<meta name="keywords" content="手写识别,手写转文字,手写OCR,图片转文字,手写笔记转文字,拍照识别文字,手写识别在线,手写识别免费,手写转word,手写转excel,扫描件转文字,handwriting to text,handwriting recognition,handwriting OCR">
+<title>图片转Excel - 图片转表格在线工具，截图/扫描件一键转可编辑Excel</title>
+<meta name="description" content="图片转Excel在线工具：截图、拍照、扫描件、PDF 一键识别表格，导出可编辑的 Excel/CSV。支持图片转表格、截图转表格、PDF转Excel、表格识别，免登录每天20次免费。">
+<meta name="keywords" content="图片转excel,图片转表格,截图转表格,截图转excel,图片转word,pdf转excel,表格识别,表格提取,图片转excel免费,图片转excel在线,图片转excel工具,图片转表格在线,表格图片转excel,image to excel,table to excel">
 <meta property="og:type" content="website">
-<meta property="og:title" content="手写转表格 - 手写转Excel在线工具 | 手写扫描通">
-<meta property="og:description" content="手写转表格/转Excel在线工具：手写笔记、账本、单据、扫描件一键识别并保留表格结构，导出 Excel/CSV/Word/Markdown。中文手写OCR识别准确，无需登录。">
+<meta property="og:title" content="图片转Excel - 图片转表格在线工具，截图/扫描件一键转可编辑Excel">
+<meta property="og:description" content="图片转Excel在线工具：截图、拍照、扫描件、PDF 一键识别表格，导出可编辑的 Excel/CSV。免登录每天20次免费。">
 <meta property="og:url" content="https://scan.czcai.cc/">
 <link rel="canonical" href="https://scan.czcai.cc/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "手写扫描通 HandWriteScan",
+  "name": "图片转Excel Img2Excel",
   "url": "https://scan.czcai.cc/",
-  "description": "免费手写识别在线工具，手写笔记、照片、扫描件一键转文字，支持手写OCR、图片转文字、拍照识别文字，导出 Word/Excel/Markdown。",
+  "description": "图片转Excel在线工具，截图、拍照、扫描件、PDF 一键识别表格结构，导出可编辑的 Excel/CSV。支持图片转表格、截图转表格、PDF转Excel、表格识别。",
   "applicationCategory": "UtilityApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
-  "featureList": "手写识别,手写转文字,手写OCR,图片转文字,手写笔记转文字,拍照识别文字,导出Markdown,导出Excel,导出CSV,中文手写识别,免费在线工具"
+  "featureList": "图片转excel,图片转表格,截图转表格,截图转excel,pdf转excel,表格识别,表格提取,导出Excel,导出CSV,图片转word,免费在线工具"
 }
 </script>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✍️</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -36,10 +36,11 @@
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a class="brand" href="/">
-      <span class="brand-icon">✍️</span>
-      <span class="brand-name" data-i18n="brand">手写扫描通</span>
+      <span class="brand-icon">📊</span>
+      <span class="brand-name" data-i18n="brand">图片转Excel</span>
     </a>
     <div class="nav-actions">
+      <a class="nav-sub-link" href="/handwriting.html" data-i18n="handwritingLink">手写转文字</a>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换主题">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -55,12 +56,12 @@
     <div class="hero-inner">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span data-i18n="heroBadge">AI 手写识别 · 免费 · 免登录</span>
+        <span data-i18n="heroBadge">AI 表格识别 · 免费 · 免登录</span>
       </div>
-      <h1 class="hero-title" data-i18n="heroTitle">手写转表格 · 转 Excel<br><span class="grad">不只是文字，连结构一起转</span></h1>
-      <p class="hero-sub" data-i18n="heroSub">拍下手写笔记、账本、表单、单据，AI 识别文字同时保留表格、标题、清单结构 —— 直接导出 Excel / CSV / Word / Markdown，不确定处高亮确认。</p>
+      <h1 class="hero-title" data-i18n="heroTitle">图片转 Excel · 表格一键提取<br><span class="grad">截图、拍照、扫描件 → 可编辑 Excel</span></h1>
+      <p class="hero-sub" data-i18n="heroSub">上传表格截图、手机拍的照片、PDF 或扫描件，AI 自动识别表格结构（行列、合并单元格），一键导出可编辑的 Excel / CSV，不用再手动敲数据。</p>
       <div class="hero-tags">
-        <span>手写转表格</span><span>手写转Excel</span><span>扫描件转结构化</span><span>表格识别</span><span>表单提取</span><span>手写笔记转Markdown</span><span>手写OCR识别</span>
+        <span>图片转Excel</span><span>截图转表格</span><span>图片转表格</span><span>PDF转Excel</span><span>表格识别</span><span>截图转Excel</span><span>图片转Word</span>
       </div>
     </div>
   </section>
@@ -73,8 +74,8 @@
         <div class="drop-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
         </div>
-        <p class="drop-title" data-i18n="dropTitle">拖拽照片到这里，或点击上传</p>
-        <p class="drop-sub" data-i18n="dropSub">支持 JPG / PNG / PDF · 手写笔记、表单、白板均可</p>
+        <p class="drop-title" data-i18n="dropTitle">拖拽表格图片到这里，或点击上传</p>
+        <p class="drop-sub" data-i18n="dropSub">支持 JPG / PNG / PDF · 表格截图、拍照、扫描件均可</p>
       </div>
       <div class="preview-area" id="previewArea" hidden>
         <img id="previewImg" alt="preview">
@@ -99,7 +100,7 @@
             <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" class="ring-bg"/><circle cx="30" cy="30" r="26" class="ring-fg"/></svg>
           </div>
         </div>
-        <p class="scan-text" data-i18n="scanning">正在识别手写内容…</p>
+        <p class="scan-text" data-i18n="scanning">正在识别表格…</p>
         <p class="scan-sub" id="scanStep" data-i18n="scanStep1">读取图片</p>
       </div>
     </div>
@@ -110,10 +111,10 @@
         <h2 class="result-title" data-i18n="resultTitle">识别结果</h2>
         <div class="result-tools">
           <button class="btn btn-outline" id="copyBtn" data-i18n="copy">复制</button>
+          <button class="btn btn-outline btn-primary-outline" id="downloadXlsxBtn" data-i18n="downloadXlsx">Excel</button>
+          <button class="btn btn-outline" id="downloadCsvBtn" data-i18n="downloadCsv">CSV</button>
           <button class="btn btn-outline" id="downloadMdBtn" data-i18n="downloadMd">Markdown</button>
           <button class="btn btn-outline" id="downloadWordBtn" data-i18n="downloadWord">Word</button>
-          <button class="btn btn-outline" id="downloadCsvBtn" data-i18n="downloadCsv">CSV</button>
-          <button class="btn btn-outline" id="downloadXlsxBtn" data-i18n="downloadXlsx">Excel</button>
           <button class="btn btn-outline" id="downloadTxtBtn" data-i18n="downloadTxt">TXT</button>
         </div>
       </div>
@@ -134,23 +135,34 @@
 
   <!-- 工作原理 -->
   <section class="how">
-    <h2 class="section-title" data-i18n="howTitle">手写转表格、转文档，三步完成</h2>
+    <h2 class="section-title" data-i18n="howTitle">图片转表格、转 Excel，三步完成</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3 data-i18n="step1Title">拍照上传</h3>
-        <p data-i18n="step1Desc">拍下手写笔记、账本、表单或白板，拖进页面即可，手机拍照也能用</p>
+        <h3 data-i18n="step1Title">上传表格图片</h3>
+        <p data-i18n="step1Desc">截图、手机拍照、扫描件或 PDF 都可以，拖进页面即可</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3 data-i18n="step2Title">识别文字与结构</h3>
-        <p data-i18n="step2Desc">自动识别表格、标题层级、列表、待办，不只出文字，结构也保留</p>
+        <h3 data-i18n="step2Title">AI 识别表格结构</h3>
+        <p data-i18n="step2Desc">自动识别行、列、合并单元格和表头，保留原表格布局</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3 data-i18n="step3Title">确认导出</h3>
+        <h3 data-i18n="step3Title">导出可编辑 Excel</h3>
         <p data-i18n="step3Desc">修改不确定处，一键导出 Excel / CSV / Word / Markdown</p>
       </div>
+    </div>
+  </section>
+
+  <!-- 使用场景 -->
+  <section class="usecase">
+    <h2 class="section-title" data-i18n="usecaseTitle">这些场景，别再用键盘敲数据了</h2>
+    <div class="usecase-grid">
+      <div class="usecase-item"><span class="usecase-icon">📋</span><h3 data-i18n="uc1Title">财务报表 / 台账</h3><p data-i18n="uc1Desc">拍下纸质报表或截图，转成 Excel 直接改数字</p></div>
+      <div class="usecase-item"><span class="usecase-icon">🧾</span><h3 data-i18n="uc2Title">发票 / 单据</h3><p data-i18n="uc2Desc">发票、对账单、报价单照片，一键提取成表格</p></div>
+      <div class="usecase-item"><span class="usecase-icon">📚</span><h3 data-i18n="uc3Title">课表 / 名单 / 登记表</h3><p data-i18n="uc3Desc">课程表、花名册、签到表，拍照即得可编辑表格</p></div>
+      <div class="usecase-item"><span class="usecase-icon">📊</span><h3 data-i18n="uc4Title">网页 / PPT 里的表格</h3><p data-i18n="uc4Desc">截图网页或演示文稿中的表格，直接转 Excel 复用</p></div>
     </div>
   </section>
 
@@ -159,43 +171,43 @@
     <h2 class="section-title" data-i18n="faqTitle">常见问题</h2>
     <div class="faq-list">
       <details class="faq-item">
-        <summary data-i18n="faq1Q">手写能转成表格 / Excel 吗？和其他 OCR 有什么不同？</summary>
-        <p data-i18n="faq1A">可以，这是我们的核心能力。普通手写识别/OCR 只输出纯文字，表格、账本、单据会乱掉；手写扫描通会识别表格结构并转成 Excel/CSV，识别标题层级、清单、待办转成结构化文档。手写笔记、账本、课表、单据都可以。</p>
+        <summary data-i18n="faq1Q">图片怎么转成 Excel？免费吗？</summary>
+        <p data-i18n="faq1A">很简单：上传表格截图、手机拍的照片、PDF 或扫描件，AI 自动识别表格结构，一键导出可编辑的 Excel。完全免费，无需登录，每个设备每天 20 次免费转换。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq2Q">手写识别是什么？在线免费手写转文字怎么用？</summary>
-        <p data-i18n="faq2A">手写识别（Handwriting OCR）是用 AI 把手写内容自动转成电子文字的技术。使用方法很简单：拍下或上传手写笔记、板书、单据照片，AI 自动识别文字和结构，输出可编辑的文本，全程免费无需登录。</p>
+        <summary data-i18n="faq2Q">截图能转成 Excel 表格吗？</summary>
+        <p data-i18n="faq2A">可以，这是最常用的场景。直接截图网页、聊天记录、PDF 里的表格，上传后自动识别行、列、合并单元格，导出 Excel 就能直接编辑，不用手动敲。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq3Q">支持图片转文字吗？手写笔记、照片、扫描件都能转吗？</summary>
-        <p data-i18n="faq3A">都支持。手写笔记照片、板书、白板、纸质单据、扫描件、PDF 都可以一键图片转文字。手机拍照识别文字和电脑上传扫描件识别都可以，纯网页版不用下载软件。</p>
+        <summary data-i18n="faq3Q">PDF 里的表格能转成 Excel 吗？</summary>
+        <p data-i18n="faq3A">可以。上传 PDF（或截图 PDF 里的表格页面），AI 会识别表格结构并转成 Excel。扫描件 PDF 也支持。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq4Q">手写能转成 Word / Excel / Markdown 吗？</summary>
-        <p data-i18n="faq4A">可以。识别结果支持一键导出多种格式：手写转 Word 文本、表格内容转 Excel/CSV、笔记转 Markdown，还有纯 TXT。识别出的标题层级、列表、待办和表格结构都会保留。</p>
+        <summary data-i18n="faq4Q">表格识别准确吗？合并单元格会保留吗？</summary>
+        <p data-i18n="faq4A">基于 GPT-5.6 视觉模型，对表格结构识别效果好，能自动识别表头、行、列和合并单元格。拿不准的地方会用黄色高亮标出，你可以点击修改后再导出。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq5Q">中文手写识别准确吗？手写体识别和手写 OCR 有区别吗？</summary>
-        <p data-i18n="faq5A">中文手写识别基于 GPT-5.6 视觉模型，对汉字手写、手写体识别效果好。手写 OCR 和手写体识别本质是同一件事——都是把手写文字提取成文本。拿不准的内容会用黄色高亮标出，你可以直接点击修改再导出。</p>
+        <summary data-i18n="faq5Q">支持手写表格吗？</summary>
+        <p data-i18n="faq5A">支持。手写的账本、课表、登记表也能识别。如果是纯手写笔记（没有表格），建议用我们的手写转文字工具，识别效果更好。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq6Q">需要注册登录吗？手机和电脑都能用吗？</summary>
-        <p data-i18n="faq6A">完全不需要注册登录。手机、平板、电脑浏览器都能直接用手写识别，无需下载手写识别 app 或安装软件。每天每个设备 20 次免费识别额度。</p>
+        <summary data-i18n="faq6Q">图片转 Word 也可以吗？</summary>
+        <p data-i18n="faq6A">可以。识别结果除了导出 Excel / CSV，也支持导出 Word、Markdown、TXT。图片转 Word、图片转表格都能做。</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="faq7Q">上传的图片会保存吗？隐私安全吗？</summary>
-        <p data-i18n="faq7A">不会保存。图片仅用于本次手写文字提取识别，识别完成后立即丢弃，服务器不留存任何文件，也没有用户账号体系，隐私优先。</p>
+        <p data-i18n="faq7A">不会保存。图片仅用于本次表格识别，识别完成后立即丢弃，服务器不留存任何文件，也没有账号体系，隐私优先。</p>
       </details>
       <details class="faq-item">
-        <summary data-i18n="faq8Q">可以识别英文手写吗？</summary>
-        <p data-i18n="faq8A">可以。支持中英文及多语言手写识别（handwriting to text），英文笔记、课堂笔记、会议记录都能转成可编辑文本，并支持导出。</p>
+        <summary data-i18n="faq8Q">手机和电脑都能用吗？</summary>
+        <p data-i18n="faq8A">都可以。手机、平板、电脑浏览器直接打开就能用，无需下载软件或 app。免费额度用完后第二天自动恢复。</p>
       </details>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <p data-i18n="footerNote">✍️ 手写扫描通 HandWriteScan · 免费手写识别/手写转文字/图片转文字在线工具 · 图片不留存</p>
+  <p data-i18n="footerNote">📊 图片转Excel Img2Excel · 免费图片转表格/截图转表格/PDF转Excel在线工具 · 图片不留存</p>
 </footer>
 
 <script src="js/i18n.js"></script>

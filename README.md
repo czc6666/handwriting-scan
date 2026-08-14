@@ -1,35 +1,39 @@
-# 手写扫描通 (HandWriteScan) v2
+# 图片转Excel Img2Excel
 
-上传手写笔记/板书/单据照片 → AI 识别为结构化 Markdown/Word/Excel/CSV → 不确定内容高亮确认 → 导出。
+把表格图片（截图、拍照、扫描件、PDF）一键转成可编辑的 Excel/CSV。副功能：手写转文字。
 
-- 线上：https://scan.czcai.cc（已挂个人主页 https://czcai.cc 产品卡第一位）
+- 线上：https://scan.czcai.cc/（主页=图片转Excel；子页 /handwriting.html=手写转文字）
 - 仓库：github.com/czc6666/handwriting-scan
 - 前端：Cloudflare Pages 静态站（纯 HTML/CSS/JS，无框架）
-- 后端：Pages Functions 代理 → CZC Token API（gpt-5.6-luna）
-- 免费额度：每设备每天 20 次（localStorage 前端 + CF-Connecting-IP 服务端双限流；**不显示剩余额度，用尽才提示**）
+- 后端：Pages Functions 代理 → CZC Token API（gpt-5.6-luna，表格优先 prompt）
+- 免费额度：每设备每天 20 次（前端 localStorage + 服务端 IP 双限流；不显示额度，用尽才提示）
 - 免登录，隐私优先（图片不留存）
-- 中英切换、浅色/深色双主题、v2 现代视觉（光晕背景/扫描动画/微动效）
+- 中英切换、浅色/深色双主题、v3 现代视觉
+
+## 定位演进
+
+v1 手写扫描通（OCR 泛化）→ v2 手写转表格/结构化 → **v3 图片转Excel（聚焦表格，手写降为子页）**
 
 ## 目录结构
 
 ```
-index.html          主页面（中英 data-i18n + SEO 全套）
-css/style.css       v2 设计系统（双主题 + 光晕 + 动效）
-js/i18n.js          语言包 + 切换
-js/app.js           上传/压缩/识别/渲染/导出（含 docx 导出）
-functions/api/recognize.js  Pages Function 代理（限流 + 调 CZC Token）
-SEO-OPTIMIZATION.md SEO 优化记录
-VERIFICATION.md     验证记录
+index.html              主页：图片转Excel（表格优先）
+handwriting.html        子页：手写转文字
+css/style.css           v3 设计系统（双主题 + 光晕 + 使用场景卡片）
+js/i18n.js              主页语言包
+js/i18n-handwriting.js  子页语言包
+js/app.js               共享识别/导出逻辑
+functions/api/recognize.js  Pages Function（表格优先 prompt + 限流）
 ```
 
 ## 导出格式（全部真实）
 
 | 格式 | 实现 |
 |---|---|
-| Markdown | 模型 markdown 字段直接下载 |
-| Word (.docx) | docx.js 解析 Markdown→Word 原生结构（标题/列表/表格），真 zip docx |
-| CSV | 前端拼 CSV（带 BOM，Excel 不乱码） |
-| Excel (.xlsx) | SheetJS 生成 |
+| Excel (.xlsx) | SheetJS 生成（结果页主按钮） |
+| CSV | 前端拼 CSV（带 BOM） |
+| Markdown | 模型 markdown 字段 |
+| Word (.docx) | docx.js 解析 Markdown→Word 结构 |
 | TXT | 纯文本 |
 
 ## 本地开发
@@ -37,23 +41,19 @@ VERIFICATION.md     验证记录
 ```bash
 npm install
 # .dev.vars 里填 CZC_API_KEY
-npm run dev          # http://127.0.0.1:8788
+npx wrangler pages dev . --port 8790 --ip 127.0.0.1 --compatibility-date=2026-08-06
 ```
+
+> 注意：本地 workerd 二进制可能不支持"今天"的 compatibility_date，需显式指定一个旧日期（如 2026-08-06），否则报 "requires compatibility date X, but newest supported is Y"。
 
 ## 部署
 
 ```bash
-npm run deploy
-# 线上环境变量：CZC_API_KEY（Pages -> Settings -> Environment variables）
+npx wrangler pages deploy . --project-name handwriting-scan
 ```
 
-## API
-
-POST /api/recognize `{"image_base64":"<jpeg base64>"}`
-返回 `{ok, result: {fields[], table[], markdown, summary}}`
-- 429 = 当日额度用完
-
 ## 已知边界
-- gpt-5.6-luna 单张 ~2300 tokens；DeepSeek V4 Flash 不支持图片（400）
-- 识别 ~20 秒；真实潦草手写准确率非 100%，低置信字段高亮让用户确认
-- 服务端限流为内存 Map（Pages 免费版无 KV 持久化），重启后重置；后续可加 KV
+- gpt-5.6-luna 单张 ~2300 tokens；DeepSeek V4 Flash 不支持图片
+- 识别 ~20 秒；低置信字段（金额/日期/数字）黄色高亮让用户确认
+- 服务端限流为内存 Map（Pages 免费版无 KV），重启后重置
+- PDF 输入：前端接受但后端只处理 base64 图片，PDF 会失败（待修）
